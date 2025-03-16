@@ -46,4 +46,4 @@ while True:
     #print(sensor.color_raw)
     #print(sensor.color_temperature)
 
-    sleep(5)
+    sleep(3)
