@@ -4,11 +4,11 @@ from webcolors import rgb_to_name, CSS3_HEX_TO_NAMES, hex_to_rgb
 
 class ColorSensor():
     def __init__(self):
-        self.__i2c = board.I2C()
-        self.__sensor = adafruit_tcs34725.TCS34725(self.__i2c)
+        self.i2c = board.I2C()
+        self.sensor = adafruit_tcs34725.TCS34725(self.i2c)
 
     def GetColorRgb(self):
-        return self.__sensor.color_rgb_bytes
+        return self.sensor.color_rgb_bytes
 
     def GetColorName(self):
         rgb = self.GetColorRgb()
