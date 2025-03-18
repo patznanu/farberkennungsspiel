@@ -70,3 +70,9 @@ class OledDisplay():
         self.ClearDisplay()
         self.WriteHeader(0, 0, "Scanner")
         self.WriteText(self.menuOffset, self.menuOrder[1], "Knopf drücken um Farbe einzulesen")
+        self.ShowTexts()
+
+    def ShowLog(self, text):
+        self.ClearDisplay()
+        self.WriteText(0, 0, text)
+        self.ShowTexts()

@@ -1,3 +1,4 @@
+from random import randrange
 from OledDisplay import OledDisplay
 from RotaryEncoder import RotaryEncoder
 from ColorSensor import ColorSensor
@@ -16,7 +17,7 @@ def RunMenuMain():
             case 1:
                 RunMenuScanner()
             case 2:
-                print("FEHLT")
+                RunGameMemory()
             case _:
                 return
 
@@ -102,6 +103,50 @@ def RunGameScanner():
     colorName = colorSendor.GetColorName()
     display.ShowMenuScanner(1, colorName)
 
+def RunGameMemory():
+    global display
+    global rotaryEncoder
+    global colorSendor
+    
+    list = []
+    list.append(AddEntry())
+
+    maxPoints = 5
+    currentPoints = 0
+    isGameRunning = True
+    didWin = False
+
+    while isGameRunning:
+        if currentPoints < maxPoints:
+            print(list)
+
+            i = 0
+            while i < len(list):
+                while not isButtonPressed:
+                    isButtonPressed = rotaryEncoder.IsButtonPressed()
+
+                rgb = colorSendor.GetColorRgb()
+
+                buffer = 20
+                r = rgb[0]-buffer <= list[i][0] <= rgb[0]+buffer
+                g = rgb[1]-buffer <= list[i][1] <= rgb[1]+buffer
+                b = rgb[2]-buffer <= list[i][2] <= rgb[2]+buffer
+
+                if r and g and b:
+                    i += 1
+                    list.append(AddEntry())
+                else:
+                    display.ShowLog("Verlierer")
+                    isGameRunning = False
+                    i = len(list)
+
+        else:
+            display.ShowLog("Gewinner")
+            isGameRunning = False
+            didWin = True
+
+    return didWin
+
 def Clamp(number, min, max):
     if (number < min):
         return max
@@ -110,6 +155,14 @@ def Clamp(number, min, max):
         return min
     
     return number
+
+def AddEntry():
+    entry = []
+    entry.append(randrange(255))
+    entry.append(randrange(255))
+    entry.append(randrange(255))
+
+    return entry
 
 
 display = OledDisplay()
