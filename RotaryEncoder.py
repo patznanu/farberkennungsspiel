@@ -16,15 +16,15 @@ class RotaryEncoder():
 
     def GetClockInput(self):
         input = GPIO.input(self.clockPin)
-        sleep(0.01)
+        sleep(0.002)
         return input
     
     def GetDirectionInput(self):
         input = GPIO.input(self.directionPin)
-        sleep(0.01)
+        sleep(0.002)
         return input
 
     def IsButtonPressed(self):
         input = GPIO.input(self.buttonPin) == GPIO.LOW
-        sleep(0.3)
+        sleep(0.002)
         return input
