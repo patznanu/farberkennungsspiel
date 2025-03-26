@@ -9,7 +9,7 @@ def Main():
     RunMenuMain()
 
 def RunMenuMain():
-    global display
+    display = OledDisplay()
     display.ShowSelectedMenu("Menü")
     display.ShowMenuMain(1)
 
@@ -23,13 +23,15 @@ def RunMenuMain():
                 return
 
 def MenuSelectionMain():
-    global display
     global rotaryEncoder
+    display = OledDisplay()
     
     selectedMenu = 1
     maxMenues = 2
     isSelectingMenu = True
     lastClock = rotaryEncoder.GetClockInput()
+    
+    display.ShowMenuMain(selectedMenu)
 
     while isSelectingMenu:
         if rotaryEncoder.IsButtonPressed():
@@ -40,9 +42,9 @@ def MenuSelectionMain():
 
             if currentClock != lastClock:
                 if currentDirection != currentClock:
-                    selectedMenu += 1  # Clockwise
+                    selectedMenu -= 1  # Clockwise
                 else:
-                    selectedMenu -= 1  # Counter-clockwise
+                    selectedMenu += 1  # Counter-clockwise
 
                 lastClock = currentClock
                 selectedMenu = Clamp(selectedMenu, 0, maxMenues)
@@ -51,7 +53,7 @@ def MenuSelectionMain():
     return selectedMenu
 
 def RunMenuScanner():
-    global display
+    display = OledDisplay()
     display.ShowSelectedMenu("Scanner")
     display.ShowMenuScanner(1)
 
@@ -62,8 +64,8 @@ def RunMenuScanner():
             return
 
 def MenuSelectionScanner():
-    global display
     global rotaryEncoder
+    display = OledDisplay()
     
     selectedMenu = 1
     maxMenues = 1
@@ -90,24 +92,32 @@ def MenuSelectionScanner():
     return selectedMenu
 
 def RunGameScanner():
-    global display
+    WatilTilButtonPressed()
+
+    colorName = GetColorName()
+
+    DisplayShowMenuScanner(colorName)
+
+def WatilTilButtonPressed():
     global rotaryEncoder
-    global colorSendor
+    #display = OledDisplay()
+
+    #display.InstructionsScanner()
 
     isButtonPressed = False
-
-    display.InstructionsScanner()
-
     while not isButtonPressed:
         isButtonPressed = rotaryEncoder.IsButtonPressed()
 
-    colorName = colorSendor.GetColorName()
+def GetColorName():
+    colorSendor = ColorSensor()
+    return colorSendor.GetColorName()
+
+def DisplayShowMenuScanner(colorName):
+    display = OledDisplay()
     display.ShowMenuScanner(1, colorName)
 
 def RunGameMemory():
-    global display
     global rotaryEncoder
-    global colorSendor
     
     list = []
     list.append(AddEntry())
@@ -126,7 +136,7 @@ def RunGameMemory():
                 while not isButtonPressed:
                     isButtonPressed = rotaryEncoder.IsButtonPressed()
 
-                rgb = colorSendor.GetColorRgb()
+                rgb = GetColorRGB()
 
                 buffer = 20
                 r = rgb[0]-buffer <= list[i][0] <= rgb[0]+buffer
@@ -137,12 +147,12 @@ def RunGameMemory():
                     i += 1
                     list.append(AddEntry())
                 else:
-                    display.ShowLog("Verlierer")
+                    DisplayShowLog("Verlierer")
                     isGameRunning = False
                     i = len(list)
 
         else:
-            display.ShowLog("Gewinner")
+            DisplayShowLog("Gewinner")
             isGameRunning = False
             didWin = True
 
@@ -165,9 +175,15 @@ def AddEntry():
 
     return entry
 
+def GetColorRGB():
+    colorSensor = colorSensor()
+    return colorSendor.GetColorRgb()
 
-display = OledDisplay()
+def DisplayShowLog(text):
+    display = OledDisplay()
+    display.ShowLog(text)
+    
+
 rotaryEncoder = RotaryEncoder()
-colorSendor = ColorSensor()
 
 Main()

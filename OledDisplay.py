@@ -42,7 +42,7 @@ class OledDisplay():
         self.oled.display()
     
     def WriteSelectedMenu(self, selectedMenu):
-        self.canvas.text((self.menuOffset/2, selectedMenu), "#", fill=1)
+        self.canvas.text((self.menuOffset/2, self.menuOrder[selectedMenu]), "#", fill=1)
 
     def ShowError(self):
         self.ClearDisplay()
