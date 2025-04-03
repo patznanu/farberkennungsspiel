@@ -4,14 +4,11 @@ from RotaryEncoder import RotaryEncoder
 from ColorSensor import ColorSensor
 
 
-
 def Main():
     RunMenuMain()
 
 def RunMenuMain():
-    display = OledDisplay()
-    display.ShowSelectedMenu("Menü")
-    display.ShowMenuMain(1)
+    DisplayMainMenu()
 
     while True:
         match MenuSelectionMain():
@@ -21,6 +18,11 @@ def RunMenuMain():
                 RunGameMemory()
             case _:
                 return
+            
+def DisplayMainMenu():
+    display = OledDisplay()
+    display.ShowSelectedMenu("Menü")
+    display.ShowMenuMain(1)
 
 def MenuSelectionMain():
     global rotaryEncoder
@@ -177,7 +179,7 @@ def AddEntry():
 
 def GetColorRGB():
     colorSensor = colorSensor()
-    return colorSendor.GetColorRgb()
+    return colorSensor.GetColorRgb()
 
 def DisplayShowLog(text):
     display = OledDisplay()
