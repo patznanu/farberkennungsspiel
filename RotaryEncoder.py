@@ -2,7 +2,6 @@ import RPi.GPIO as GPIO
 from time import sleep
 from OledDisplay import OledDisplay
 
-
 class RotaryEncoder():
     def __init__(self):
         self.clockPin = 17

@@ -21,9 +21,7 @@
 
 from PIL import Image, ImageDraw
 
-
 class ssd1306():
-
     def __init__(self, bus, address=0x3C):
         self.cmd_mode = 0x00
         self.data_mode = 0x40

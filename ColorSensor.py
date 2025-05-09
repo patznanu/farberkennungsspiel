@@ -7,9 +7,6 @@ class ColorSensor():
         self.i2c = board.I2C()
         self.sensor = adafruit_tcs34725.TCS34725(self.i2c)
 
-    def GetColorRgb(self):
-        return self.sensor.color_rgb_bytes
-
     def GetColorName(self):
         rgb = self.GetColorRgb()
 
@@ -18,3 +15,6 @@ class ColorSensor():
         except ValueError:
             closest_color = min(CSS3_HEX_TO_NAMES, key=lambda hex: sum((a - b) ** 2 for a, b in zip(rgb, hex_to_rgb(hex))))
             return CSS3_HEX_TO_NAMES[closest_color]
+
+    def GetColorRgb(self):
+        return self.sensor.color_rgb_bytes

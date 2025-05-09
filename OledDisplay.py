@@ -3,7 +3,6 @@ from PIL import ImageFont
 from time import sleep
 from lib_oled96 import ssd1306
 
-
 class OledDisplay():
     def __init__(self):
         self.i2cbus = SMBus(1)
