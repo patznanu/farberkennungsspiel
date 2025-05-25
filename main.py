@@ -212,23 +212,3 @@ def DisplayShowLog(text):
 #rotaryEncoder = RotaryEncoder()
 
 Main()
-
-"""
-File "/home/pat/Desktop/farberkennungsspiel/main.py", line 214, in <module>
-    Main()
-  File "/home/pat/Desktop/farberkennungsspiel/main.py", line 11, in Main
-    RunMenuMain()
-  File "/home/pat/Desktop/farberkennungsspiel/main.py", line 17, in RunMenuMain
-    match MenuSelectionMain():
-          ^^^^^^^^^^^^^^^^^^^
-  File "/home/pat/Desktop/farberkennungsspiel/main.py", line 33, in MenuSelectionMain
-    rotaryEncoder = RotaryEncoder()
-                    ^^^^^^^^^^^^^^^
-  File "/home/pat/Desktop/farberkennungsspiel/RotaryEncoder.py", line 10, in __init__
-    GPIO.setup(self.clockPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-RuntimeError: Cannot determine SOC peripheral base address
-
-python3 -c "import RPi.GPIO as GPIO; print(GPIO.RPI_INFO)"
-
-{'P1_REVISION': 3, 'REVISION': 'c04170', 'TYPE': 'Unknown', 'MANUFACTURER': 'Sony UK', 'PROCESSOR': 'Unknown', 'RAM': '4G'}
-"""
