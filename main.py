@@ -226,13 +226,5 @@ File "/home/pat/Desktop/farberkennungsspiel/main.py", line 214, in <module>
                     ^^^^^^^^^^^^^^^
   File "/home/pat/Desktop/farberkennungsspiel/RotaryEncoder.py", line 10, in __init__
     GPIO.setup(self.clockPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-  File "/usr/lib/python3/dist-packages/RPi/GPIO/__init__.py", line 696, in setup
-    _check(lgpio.gpio_claim_input(_chip, gpio, {
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3/dist-packages/lgpio.py", line 755, in gpio_claim_input
-    return _u2i(_lgpio._gpio_claim_input(handle&0xffff, lFlags, gpio))
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3/dist-packages/lgpio.py", line 458, in _u2i
-    raise error(error_text(v))
-lgpio.error: 'GPIO busy'
+RuntimeError: Cannot determine SOC peripheral base address
 """
