@@ -2,13 +2,12 @@ from smbus import SMBus
 from PIL import ImageFont
 from time import sleep
 from lib_oled96 import ssd1306
-import adafruit_ssd1306
 
 class OledDisplay():
-    def __init__(self, i2c):
-        self.oled = adafruit_ssd1306.SSD1306_I2C(128, 64, i2c)
-        self.oled.fill(0)
-        self.oled.show()
+    def __init__(self):
+        self.i2cbus = SMBus(1)
+        self.oled = ssd1306(self.i2cbus)
+        self.canvas = self.oled.canvas
 
         self.fontHeader = ImageFont.truetype("FreeSans.ttf", 16)
         self.fontText = ImageFont.truetype("FreeSans.ttf", 12)
@@ -18,6 +17,12 @@ class OledDisplay():
         self.menuOrder = [50, 20, 30]
 
         self.ClearDisplay()
+
+    def Close(self):
+        self.i2cbus.close()
+        self.oled = None
+        self.i2cbus = None
+        sleep(1)
         
     def ClearDisplay(self):
         self.oled.cls()
