@@ -1,9 +1,11 @@
 from random import randrange
+import RPi.GPIO as GPIO
 from OledDisplay import OledDisplay
 from RotaryEncoder import RotaryEncoder
 from ColorSensor import ColorSensor
 
-rotaryEncoder = RotaryEncoder()
+GPIO.setmode(GPIO.BCM)
+#rotaryEncoder = RotaryEncoder()
 
 def Main():
     RunMenuMain()
@@ -28,6 +30,7 @@ def DisplayMainMenu():
 
 def MenuSelectionMain():
     #global rotaryEncoder
+    rotaryEncoder = RotaryEncoder()
     display = OledDisplay()
     
     selectedMenu = 1
@@ -54,6 +57,7 @@ def MenuSelectionMain():
                 selectedMenu = Clamp(selectedMenu, 0, maxMenues)
                 display.ShowMenuMain(selectedMenu)
 
+    rotaryEncoder.Close()
     display.Close()
     return selectedMenu
 
@@ -72,6 +76,7 @@ def RunMenuScanner():
 
 def MenuSelectionScanner():
     #global rotaryEncoder
+    rotaryEncoder = RotaryEncoder()
     display = OledDisplay()
     
     selectedMenu = 1
@@ -96,6 +101,7 @@ def MenuSelectionScanner():
                 selectedMenu = Clamp(selectedMenu, 0, maxMenues)
                 display.ShowMenuScanner(selectedMenu)
 
+    rotaryEncoder.Close()
     display.Close()
     return selectedMenu
 
@@ -108,6 +114,7 @@ def RunGameScanner():
 
 def WatilTilButtonPressed():
     #global rotaryEncoder
+    rotaryEncoder = RotaryEncoder()
     #display = OledDisplay()
 
     #display.InstructionsScanner()
@@ -115,6 +122,8 @@ def WatilTilButtonPressed():
     isButtonPressed = False
     while not isButtonPressed:
         isButtonPressed = rotaryEncoder.IsButtonPressed()
+
+    rotaryEncoder.Close()
 
 def GetColorName():
     colorSensor = ColorSensor()
@@ -129,6 +138,7 @@ def DisplayShowMenuScanner(colorName):
 
 def RunGameMemory():
     #global rotaryEncoder
+    rotaryEncoder = RotaryEncoder()
     
     list = []
     list.append(AddEntry())
@@ -167,6 +177,7 @@ def RunGameMemory():
             isGameRunning = False
             didWin = True
 
+    rotaryEncoder.Close()
     return didWin
 
 def Clamp(number, min, max):
@@ -201,3 +212,27 @@ def DisplayShowLog(text):
 #rotaryEncoder = RotaryEncoder()
 
 Main()
+
+"""
+File "/home/pat/Desktop/farberkennungsspiel/main.py", line 214, in <module>
+    Main()
+  File "/home/pat/Desktop/farberkennungsspiel/main.py", line 11, in Main
+    RunMenuMain()
+  File "/home/pat/Desktop/farberkennungsspiel/main.py", line 17, in RunMenuMain
+    match MenuSelectionMain():
+          ^^^^^^^^^^^^^^^^^^^
+  File "/home/pat/Desktop/farberkennungsspiel/main.py", line 33, in MenuSelectionMain
+    rotaryEncoder = RotaryEncoder()
+                    ^^^^^^^^^^^^^^^
+  File "/home/pat/Desktop/farberkennungsspiel/RotaryEncoder.py", line 10, in __init__
+    GPIO.setup(self.clockPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+  File "/usr/lib/python3/dist-packages/RPi/GPIO/__init__.py", line 696, in setup
+    _check(lgpio.gpio_claim_input(_chip, gpio, {
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/lgpio.py", line 755, in gpio_claim_input
+    return _u2i(_lgpio._gpio_claim_input(handle&0xffff, lFlags, gpio))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/lgpio.py", line 458, in _u2i
+    raise error(error_text(v))
+lgpio.error: 'GPIO busy'
+"""
