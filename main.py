@@ -227,4 +227,6 @@ File "/home/pat/Desktop/farberkennungsspiel/main.py", line 214, in <module>
   File "/home/pat/Desktop/farberkennungsspiel/RotaryEncoder.py", line 10, in __init__
     GPIO.setup(self.clockPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 RuntimeError: Cannot determine SOC peripheral base address
+
+python3 -c "import RPi.GPIO as GPIO; print(GPIO.RPI_INFO)"
 """
