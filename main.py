@@ -229,4 +229,6 @@ File "/home/pat/Desktop/farberkennungsspiel/main.py", line 214, in <module>
 RuntimeError: Cannot determine SOC peripheral base address
 
 python3 -c "import RPi.GPIO as GPIO; print(GPIO.RPI_INFO)"
+
+{'P1_REVISION': 3, 'REVISION': 'c04170', 'TYPE': 'Unknown', 'MANUFACTURER': 'Sony UK', 'PROCESSOR': 'Unknown', 'RAM': '4G'}
 """
