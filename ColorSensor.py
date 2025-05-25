@@ -1,11 +1,9 @@
-import board
 import adafruit_tcs34725
 from webcolors import rgb_to_name, CSS3_HEX_TO_NAMES, hex_to_rgb
 
 class ColorSensor():
-    def __init__(self):
-        self.i2c = board.I2C()
-        self.sensor = adafruit_tcs34725.TCS34725(self.i2c)
+    def __init__(self, i2c):
+        self.sensor = adafruit_tcs34725.TCS34725(i2c)
 
     def GetColorName(self):
         rgb = self.GetColorRgb()

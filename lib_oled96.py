@@ -58,7 +58,7 @@ class ssd1306():
         LIMIT ON ARDUINO: CMD BYTE + 31 = 32, SO LIMIT TO 31     bl
         """
         assert(len(cmd) <= 31)
-        self.bus.write_i2c_block_data(self.addr, self.cmd_mode, list(cmd))
+        #self.bus.write_i2c_block_data(self.addr, self.cmd_mode, list(cmd))
 
     def _data(self, data):
         """
@@ -68,8 +68,8 @@ class ssd1306():
         In our library, only data operation used is 128x64 long, ie whole canvas.
         """
 
-        for i in range(0, len(data), 31):
-            self.bus.write_i2c_block_data(self.addr, self.data_mode, list(data[i:i+31]))
+        #for i in range(0, len(data), 31):
+            #self.bus.write_i2c_block_data(self.addr, self.data_mode, list(data[i:i+31]))
 
 
     def display(self):
