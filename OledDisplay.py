@@ -28,31 +28,39 @@ class OledDisplay():
         self.oled.cls()
         self.oled.display()
 
-    def ShowMenuMain(self, selectedMenu):
-        self.ClearDisplay()
-        self.WriteHeader(0, 0, "Hauptmenü")
-        self.WriteText(self.menuOffset, self.menuOrder[1], "-> Farbe einscannen")
-        self.WriteText(self.menuOffset, self.menuOrder[2], "-> Farbmemory")
-        self.WriteText(self.menuOffset, self.menuOrder[0], "-> Beenden")
-        self.WriteSelectedMenu(selectedMenu)
-        self.ShowTexts()
-
     def WriteHeader(self, x, y, text):
         self.canvas.text((x, y), text, font=self.fontHeader, fill=1)
 
     def WriteText(self, x, y, text):
         self.canvas.text((x, y), text, font=self.fontText, fill=1)
+    
+    def ShowSelectedMenuOption(self, selectedMenu):
+        self.canvas.text((self.menuOffset/2, self.menuOrder[selectedMenu]), "#", fill=1)
 
     def ShowTexts(self) -> None:
         self.oled.display()
-    
-    def WriteSelectedMenu(self, selectedMenu):
-        self.canvas.text((self.menuOffset/2, self.menuOrder[selectedMenu]), "#", fill=1)
 
     def ShowError(self):
         self.ClearDisplay()
         self.WriteText(10, 10, "Error")
         self.ShowTexts()
+
+    def ShowLog(self, text):
+        self.ClearDisplay()
+        self.WriteText(0, 0, text)
+        self.ShowTexts()
+
+    def MainMenu(self, selectedMenu):
+        self.ClearDisplay()
+        self.MainMenuText()
+        self.ShowSelectedMenuOption(selectedMenu)
+        self.ShowTexts()
+
+    def MainMenuText(self):
+        self.WriteHeader(0, 0, "Hauptmenü")
+        self.WriteText(self.menuOffset, self.menuOrder[1], "-> Farbe einscannen")
+        self.WriteText(self.menuOffset, self.menuOrder[2], "-> Farbmemory")
+        self.WriteText(self.menuOffset, self.menuOrder[0], "-> Beenden")
 
     def ShowSelectedMenu(self, text):
         self.ClearDisplay()
@@ -62,22 +70,20 @@ class OledDisplay():
         self.ClearDisplay()
         self.ShowTexts()
 
-    def ShowMenuScanner(self, selectedMenu, color=""):
+    def ScannerMenu(self, selectedMenu, color=""):
         self.ClearDisplay()
+        self.ScannerMenuText(color)
+        self.ShowSelectedMenuOption(selectedMenu)
+        self.ShowTexts()
+
+    def ScannerMenuText(self, color=""):
         self.WriteHeader(0, 0, "Farbe")
         self.WriteText(self.menuOffset, self.menuOrder[1], "-> Farbe einscannen")
         self.WriteText(self.menuOffset, self.menuOrder[2], f"   Farbe: {color}")
         self.WriteText(self.menuOffset, self.menuOrder[0], "-> Beenden")
-        self.WriteSelectedMenu(selectedMenu)
-        self.ShowTexts()
 
-    def InstructionsScanner(self):
+    def ScannerInstructions(self):
         self.ClearDisplay()
         self.WriteHeader(0, 0, "Scanner")
         self.WriteText(self.menuOffset, self.menuOrder[1], "Knopf drücken um Farbe einzulesen")
-        self.ShowTexts()
-
-    def ShowLog(self, text):
-        self.ClearDisplay()
-        self.WriteText(0, 0, text)
         self.ShowTexts()

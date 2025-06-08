@@ -7,6 +7,7 @@ class RotaryEncoder():
         self.directionPin = 18
         self.buttonPin = 27
 
+        GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.clockPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         GPIO.setup(self.directionPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         GPIO.setup(self.buttonPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
